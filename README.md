@@ -1,6 +1,6 @@
 # PodiumEx
 
-**TODO: Add description**
+A library for interfacing with the Podium API.
 
 ## Installation
 
@@ -18,4 +18,3 @@ end
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/podium_ex](https://hexdocs.pm/podium_ex).
-
