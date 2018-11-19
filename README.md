@@ -10,7 +10,7 @@ by adding `podium_ex` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:podium_ex, "~> 0.1.0"}
+    {:podium_ex, "~> 0.2"}
   ]
 end
 ```
