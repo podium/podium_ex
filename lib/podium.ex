@@ -4,6 +4,7 @@ defmodule Podium do
   """
 
   alias Podium.{
+    API,
     ConversationItem,
     Interaction,
     Message
@@ -13,7 +14,7 @@ defmodule Podium do
   Create a conversation item.
   """
   @spec create_conversation_item(ConversationItem.t()) :: ConversationItem.t()
-  def create_conversation_item(item) do
+  def create_conversation_item(%ConversationItem{} = item) do
     item
   end
 
