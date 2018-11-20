@@ -16,7 +16,7 @@ contact = %Podium.Contact{
   phone_number: "+18018976321"
 }
 message = %Podium.Message{
-  body: "Hey there, :contact:!",
+  body: "Hey there, Ryan!",
   contact: contact,
   location_uid: location_uid
 }
@@ -27,6 +27,6 @@ conversation_item = %Podium.ConversationItem{
   body: "Hey there, :contact:! It's time for your annual checkup",
   location_uid: location_uid,
   icon_url: "",
-  source_type: :event,
+  source_type: :outbound,
   publish_date: DateTime.utc_now
 }
