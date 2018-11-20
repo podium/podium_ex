@@ -11,6 +11,7 @@ defmodule Podium.Message do
     location_uid: String.t()
   }
 
+  @derive Jason.Encoder
   defstruct contact: nil,
             body: nil,
             location_uid: nil

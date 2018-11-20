@@ -3,7 +3,7 @@ defmodule PodiumEx.MixProject do
 
   def project do
     [
-      app: :podium_ex,
+      app: :podium,
       description: "HTTP client for interfacing with the Podium API",
       version: "0.2.0",
       elixir: "~> 1.7",
@@ -27,7 +27,9 @@ defmodule PodiumEx.MixProject do
   defp deps do
     [
       {:ex_doc, "~> 0.19", only: :dev, runtime: false},
-      {:httpoison, "~> 1.4"}
+      {:caramelize, "~> 0.2"},
+      {:httpoison, "~> 1.4"},
+      {:jason, "~> 1.1"}
     ]
   end
 

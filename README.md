@@ -25,7 +25,7 @@ You will need to provide the following configuration options (usually in `config
 
 You can optionally also include the following:
 
-  `:base_url` - The root URL onto which all paths are appended. Defaults to `https://api.podium.com/api/v2/`
+  `:base_url` - The root URL onto which all paths are appended. Defaults to `https://api.podium.com/api/v2`
 
 ### Example Configuration
 

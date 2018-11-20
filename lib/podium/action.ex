@@ -9,6 +9,7 @@ defmodule Podium.Action do
     conversation_uid: String.t()
   }
 
+  @derive Jason.Encoder
   defstruct [
     label: nil,
     interaction_uid: nil,

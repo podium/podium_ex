@@ -8,6 +8,7 @@ defmodule Podium.Contact do
     phone_number: String.t()
   }
 
+  @derive Jason.Encoder
   defstruct [
     name: nil,
     phone_number: nil

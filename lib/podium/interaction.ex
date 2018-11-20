@@ -20,6 +20,7 @@ defmodule Podium.Interaction do
     uid: String.t()
   }
 
+  @derive Jason.Encoder
   defstruct [
     contact: nil,
     header: nil,
