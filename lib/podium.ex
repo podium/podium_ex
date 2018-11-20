@@ -101,7 +101,7 @@ defmodule Podium do
 
   @spec inject_application_uid(map()) :: map()
   defp inject_application_uid(map) do
-    application_uid = Application.get_env(:podium, :application_uid)
+    application_uid = Application.get_env(:podium_ex, :application_uid)
 
     map
     |> Map.from_struct()

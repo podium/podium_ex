@@ -3,9 +3,9 @@ defmodule PodiumEx.MixProject do
 
   def project do
     [
-      app: :podium,
+      app: :podium_ex,
       description: "HTTP client for interfacing with the Podium API",
-      version: "0.2.0",
+      version: "0.3.0",
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       deps: deps(),

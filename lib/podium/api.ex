@@ -18,7 +18,8 @@ defmodule Podium.API do
     [
       {"Accept", "application/json"},
       {"Authorization", api_key()},
-      {"Content-Type", "application/json"}
+      {"Content-Type", "application/json"},
+      {"Application-Uid", application_uid()}
     ] ++ headers
   end
 
@@ -28,11 +29,11 @@ defmodule Podium.API do
   end
 
   @spec api_key() :: String.t()
-  defp api_key, do: Application.get_env(:podium, :api_key, "")
+  defp api_key, do: Application.get_env(:podium_ex, :api_key, "")
 
   @spec base_url() :: String.t()
-  defp base_url, do: Application.get_env(:podium, :base_url, @default_base_url)
+  defp base_url, do: Application.get_env(:podium_ex, :base_url, @default_base_url)
 
   @spec application_uid() :: String.t()
-  defp application_uid, do: Application.get_env(:podium, :application_uid, "")
+  defp application_uid, do: Application.get_env(:podium_ex, :application_uid, "")
 end

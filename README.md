@@ -30,7 +30,7 @@ You can optionally also include the following:
 ### Example Configuration
 
 ```elixir
-config :podium,
+config :podium_ex,
   api_key: "podiumisthebestever",
   application_uid: "abc098-1234abc-1234abcdefgh"
 ```
