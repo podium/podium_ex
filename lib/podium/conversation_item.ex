@@ -11,6 +11,7 @@ defmodule Podium.ConversationItem do
 
   @type t :: %__MODULE__{
     contact: Contact.t(),
+    conversation_uid: String.t(),
     header: String.t(),
     subheader: String.t(),
     body: String.t(),
@@ -25,6 +26,7 @@ defmodule Podium.ConversationItem do
   @derive Jason.Encoder
   defstruct [
     contact: nil,
+    conversation_uid: nil,
     header: nil,
     subheader: nil,
     body: nil,
