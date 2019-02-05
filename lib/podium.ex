@@ -7,9 +7,13 @@ defmodule Podium do
     API,
     ConversationItem,
     Interaction,
+    Location,
     Message,
+    Organization,
     Source
   }
+
+  require Logger
 
   @doc """
   Create a conversation item.
@@ -23,9 +27,10 @@ defmodule Podium do
       |> inject_application_uid()
       |> inject_source_type()
 
-    conversation_item = Caramelize.camelize(%{
-      conversation_item: conversation_item
-    })
+    conversation_item =
+      Caramelize.camelize(%{
+        conversation_item: conversation_item
+      })
 
     API.post("/conversation_items", Caramelize.camelize(conversation_item))
   end
@@ -109,6 +114,46 @@ defmodule Podium do
     API.put("/interactions/#{uid}", Caramelize.camelize(interaction))
   end
 
+  @doc """
+  Get an organization and its locations.
+
+  ## Examples
+
+      iex> get_organization("f4ac4bcb-e271-5a92-8e43-1d676a8821fa")
+      %Organization{locations: [%Location{}]}
+
+      iex> get_organization("non-existent UID")
+      nil
+  """
+  @spec get_organization(String.t()) :: Organization.t() | nil
+  def get_organization(uid) do
+    with {:ok, %HTTPoison.Response{body: body, status_code: 200}} <-
+           API.get("/organizations/#{uid}"),
+         {:ok, %{"data" => %{"organization" => org}}} <- Jason.decode(body),
+         %{"uid" => uid, "locations" => locations, "businessName" => name} <- org do
+      %Organization{
+        business_name: name,
+        locations: parse_locations(locations),
+        uid: uid
+      }
+    else
+      error ->
+        Logger.error("Error while getting organization details from Podium: #{inspect(error)}")
+        nil
+    end
+  end
+
+  @spec parse_locations(list(map())) :: list(Location.t())
+  defp parse_locations(locations) do
+    Enum.map(locations, fn location ->
+      %Location{
+        address: location["address"],
+        name: location["name"],
+        uid: location["uid"]
+      }
+    end)
+  end
+
   @spec remove_nils(map()) :: map()
   defp remove_nils(map) do
     map
@@ -129,7 +174,8 @@ defmodule Podium do
   end
 
   @spec format_actions(map()) :: map()
-  def format_actions(%{actions: actions} = struct) when is_list(actions) and length(actions) > 0 do
+  def format_actions(%{actions: actions} = struct)
+      when is_list(actions) and length(actions) > 0 do
     formatted = Enum.map(actions, &remove_nils/1)
     Map.put(struct, :actions, formatted)
   end
