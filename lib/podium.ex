@@ -174,11 +174,11 @@ defmodule Podium do
   end
 
   @spec format_actions(map()) :: map()
-  def format_actions(%{actions: actions} = struct)
-      when is_list(actions) and length(actions) > 0 do
+  defp format_actions(%{actions: actions} = struct)
+       when is_list(actions) and length(actions) > 0 do
     formatted = Enum.map(actions, &remove_nils/1)
     Map.put(struct, :actions, formatted)
   end
 
-  def format_actions(struct), do: struct
+  defp format_actions(struct), do: struct
 end
