@@ -1,6 +1,7 @@
 defmodule Podium do
   @moduledoc """
-  An HTTP client for the Podium API.
+  Podium is a client for Podium's public API. It allows your to create new
+  messages and send them, among other things.
   """
 
   alias Podium.{
