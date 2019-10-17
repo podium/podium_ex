@@ -12,6 +12,7 @@ defmodule PodiumEx.MixProject do
       source_url: "https://github.com/podium/podium_ex",
       homepage_url: "https://podium.com",
       package: package(),
+      name: "Podium",
       docs: [
         main: Podium
       ]
