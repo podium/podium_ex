@@ -20,8 +20,8 @@ Then run `mix deps.get` to download it.
 
 You will need to provide the following configuration options (usually in `config/config.exs`). It is recommended to use environment variables in production to avoid committing secrets in your repository. However, environment variables will cause problems if you are generating releases with distillery or exrm. Configuration should include:
 
-`:api_key` - The API key given to you by Podium.
-`:application_uid` - The ID given to you by Podium.
+- `:api_key` - The API key given to you by Podium.
+- `:application_uid` - The ID given to you by Podium.
 
 You can optionally also include the following:
 
