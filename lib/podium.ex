@@ -17,7 +17,7 @@ defmodule Podium do
   require Logger
 
   @doc """
-  Create a conversation item.
+  Create a conversation item. Read about conversation items [here](https://hexdocs.pm/podium_ex/Podium.ConversationItem.html#content).
   """
   @spec create_conversation_item(ConversationItem.t()) :: ConversationItem.t()
   def create_conversation_item(%ConversationItem{} = item) do
@@ -37,7 +37,7 @@ defmodule Podium do
   end
 
   @doc """
-  Update a conversation item.
+  Update a [conversation item](https://hexdocs.pm/podium_ex/Podium.ConversationItem.html#content).
   """
   @spec update_conversation_item(ConversationItem.t()) :: ConversationItem.t()
   def update_conversation_item(%ConversationItem{uid: uid} = item) do
@@ -55,7 +55,7 @@ defmodule Podium do
   end
 
   @doc """
-  Delete a conversation item.
+  Delete a [conversation item](https://hexdocs.pm/podium_ex/Podium.ConversationItem.html#content).
   """
   @spec delete_conversation_item(String.t()) :: :ok
   def delete_conversation_item(uid) do
@@ -63,7 +63,7 @@ defmodule Podium do
   end
 
   @doc """
-  Create a message.
+  Create a message. Read about messages [here](https://hexdocs.pm/podium_ex/Podium.Message.html#content).
   """
   @spec create_message(Message.t()) :: Message.t()
   def create_message(%Message{} = msg) do
@@ -80,7 +80,7 @@ defmodule Podium do
   end
 
   @doc """
-  Create an interaction.
+  Create an interaction. Read about interactions [here](https://hexdocs.pm/podium_ex/Podium.Interaction.html#content).
   """
   @spec create_interaction(Interaction.t()) :: Interaction.t()
   def create_interaction(%Interaction{} = interaction) do
@@ -98,7 +98,7 @@ defmodule Podium do
   end
 
   @doc """
-  Update an interaction.
+  Update an [interaction](https://hexdocs.pm/podium_ex/Podium.Interaction.html#content).
   """
   @spec update_interaction(Interaction.t()) :: Interaction.t()
   def update_interaction(%Interaction{uid: uid} = interaction) do
