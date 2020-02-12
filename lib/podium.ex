@@ -41,7 +41,7 @@ defmodule Podium do
   Update a [conversation item](https://hexdocs.pm/podium_ex/Podium.ConversationItem.html#content).
   """
   @spec update_conversation_item(ConversationItem.t()) :: ConversationItem.t()
-  def update_conversation_item(%ConversationItem{uid: uid} = item, organization_uid \\ nil, location_uid \\ nil) do
+  def update_conversation_item(%ConversationItem{} = item, organization_uid \\ nil, location_uid \\ nil) do
     conversation_item =
       item
       |> remove_nils()
@@ -54,7 +54,7 @@ defmodule Podium do
       organization_uid: organization_uid
     }
 
-    API.put("/conversation_items/#{uid}", Caramelize.camelize(params))
+    API.put("/conversation_items", Caramelize.camelize(params))
   end
 
   @doc """
