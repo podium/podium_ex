@@ -20,7 +20,7 @@ defmodule Podium do
   Create a conversation item. Read about conversation items [here](https://hexdocs.pm/podium_ex/Podium.ConversationItem.html#content).
   """
   @spec create_conversation_item(ConversationItem.t()) :: ConversationItem.t()
-  def create_conversation_item(%ConversationItem{} = item) do
+  def create_conversation_item(%ConversationItem{} = item, organization_uid \\ nil, location_uid \\ nil) do
     conversation_item =
       item
       |> remove_nils()
@@ -28,91 +28,100 @@ defmodule Podium do
       |> inject_application_uid()
       |> inject_source_type()
 
-    conversation_item =
-      Caramelize.camelize(%{
-        conversation_item: conversation_item
-      })
+    params = %{
+      conversation_item: conversation_item,
+      location_uid: location_uid,
+      organization_uid: organization_uid
+    }
 
-    API.post("/conversation_items", Caramelize.camelize(conversation_item))
+    API.post("/conversation_items", Caramelize.camelize(params))
   end
 
   @doc """
   Update a [conversation item](https://hexdocs.pm/podium_ex/Podium.ConversationItem.html#content).
   """
   @spec update_conversation_item(ConversationItem.t()) :: ConversationItem.t()
-  def update_conversation_item(%ConversationItem{uid: uid} = item) do
+  def update_conversation_item(%ConversationItem{uid: uid} = item, organization_uid \\ nil, location_uid \\ nil) do
     conversation_item =
       item
       |> remove_nils()
       |> inject_application_uid()
       |> inject_source_type()
 
-    conversation_item = %{
-      conversation_item: conversation_item
+    params = %{
+      conversation_item: conversation_item,
+      location_uid: location_uid,
+      organization_uid: organization_uid
     }
 
-    API.put("/conversation_items/#{uid}", Caramelize.camelize(conversation_item))
+    API.put("/conversation_items/#{uid}", Caramelize.camelize(params))
   end
 
   @doc """
   Delete a [conversation item](https://hexdocs.pm/podium_ex/Podium.ConversationItem.html#content).
   """
-  @spec delete_conversation_item(String.t()) :: :ok
-  def delete_conversation_item(uid) do
-    API.delete("/conversation_items/#{uid}")
+  @spec delete_conversation_item(String.t(), String.t(), String.t()) :: :ok
+  def delete_conversation_item(application_uid, organization_uid, uid) do
+    API.delete("/applications/#{application_uid}organizations/#{organization_uid}/conversation_items/#{uid}")
   end
 
   @doc """
   Create a message. Read about messages [here](https://hexdocs.pm/podium_ex/Podium.Message.html#content).
   """
   @spec create_message(Message.t()) :: Message.t()
-  def create_message(%Message{} = msg) do
+  def create_message(%Message{} = msg, organization_uid \\ nil, location_uid \\ nil) do
     message =
       msg
       |> remove_nils()
       |> inject_application_uid()
 
-    message = %{
-      conversation_item: message
+    params = %{
+      conversation_item: message,
+      location_uid: location_uid,
+      organization_uid: organization_uid
     }
 
-    API.post("/messages", Caramelize.camelize(message))
+    API.post("/messages", Caramelize.camelize(params))
   end
 
   @doc """
   Create an interaction. Read about interactions [here](https://hexdocs.pm/podium_ex/Podium.Interaction.html#content).
   """
   @spec create_interaction(Interaction.t()) :: Interaction.t()
-  def create_interaction(%Interaction{} = interaction) do
+  def create_interaction(%Interaction{} = interaction, organization_uid \\ nil, location_uid \\ nil) do
     interaction =
       interaction
       |> remove_nils()
       |> inject_application_uid()
       |> inject_source_type()
 
-    interaction = %{
-      interaction: interaction
+    params = %{
+      interaction: interaction,
+      location_uid: location_uid,
+      organization_uid: organization_uid
     }
 
-    API.post("/interactions", Caramelize.camelize(interaction))
+    API.post("/interactions", Caramelize.camelize(params))
   end
 
   @doc """
   Update an [interaction](https://hexdocs.pm/podium_ex/Podium.Interaction.html#content).
   """
   @spec update_interaction(Interaction.t()) :: Interaction.t()
-  def update_interaction(%Interaction{uid: uid} = interaction) do
+  def update_interaction(%Interaction{uid: uid} = interaction, organization_uid \\ nil, location_uid \\ nil) do
     interaction =
       interaction
       |> remove_nils()
       |> inject_application_uid()
       |> inject_source_type()
 
-    interaction = %{
-      interaction: interaction
+    params = %{
+      interaction: interaction,
+      location_uid: location_uid,
+      organization_uid: organization_uid
     }
 
-    API.put("/interactions/#{uid}", Caramelize.camelize(interaction))
+    API.put("/interactions/#{uid}", Caramelize.camelize(params))
   end
 
   @doc """
