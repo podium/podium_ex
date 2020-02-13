@@ -28,11 +28,12 @@ defmodule Podium do
       |> inject_application_uid()
       |> inject_source_type()
 
-    params = %{
-      conversation_item: conversation_item
-    }
+    conversation_item =
+      Caramelize.camelize(%{
+        conversation_item: conversation_item
+      })
 
-    API.post("/conversation_items", Caramelize.camelize(params))
+    API.post("/conversation_items", Caramelize.camelize(conversation_item))
   end
 
   @doc """
@@ -46,18 +47,20 @@ defmodule Podium do
       |> inject_application_uid()
       |> inject_source_type()
 
-    params = %{
+    conversation_item = %{
       conversation_item: conversation_item
     }
 
-    API.put("/conversation_items", Caramelize.camelize(params))
+    API.put("/conversation_items", Caramelize.camelize(conversation_item))
   end
 
   @doc """
   Delete a [conversation item](https://hexdocs.pm/podium_ex/Podium.ConversationItem.html#content).
   """
-  @spec delete_conversation_item(String.t(), String.t(), String.t()) :: :ok
-  def delete_conversation_item(application_uid, organization_uid, uid) do
+  @spec delete_conversation_item(String.t(), String.t()) :: :ok
+  def delete_conversation_item(uid, organization_uid) do
+    application_uid = Application.get_env(:podium_ex, :application_uid)
+
     API.delete("/applications/#{application_uid}organizations/#{organization_uid}/conversation_items/#{uid}")
   end
 
@@ -71,11 +74,11 @@ defmodule Podium do
       |> remove_nils()
       |> inject_application_uid()
 
-    params = %{
+    message = %{
       conversation_item: message
     }
 
-    API.post("/messages", Caramelize.camelize(params))
+    API.post("/messages", Caramelize.camelize(message))
   end
 
   @doc """
@@ -89,11 +92,11 @@ defmodule Podium do
       |> inject_application_uid()
       |> inject_source_type()
 
-    params = %{
+    interaction = %{
       interaction: interaction
     }
 
-    API.post("/interactions", Caramelize.camelize(params))
+    API.post("/interactions", Caramelize.camelize(interaction))
   end
 
   @doc """
@@ -107,11 +110,11 @@ defmodule Podium do
       |> inject_application_uid()
       |> inject_source_type()
 
-    params = %{
+    interaction = %{
       interaction: interaction
     }
 
-    API.put("/interactions/#{uid}", Caramelize.camelize(params))
+    API.put("/interactions/#{uid}", Caramelize.camelize(interaction))
   end
 
   @doc """
