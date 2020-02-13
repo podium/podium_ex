@@ -9,7 +9,7 @@ The package can be installed by adding `podium_ex` to your list of dependencies 
 ```elixir
 def deps do
   [
-    {:podium_ex, "~> 0.5"}
+    {:podium_ex, "~> 0.6"}
   ]
 end
 ```
