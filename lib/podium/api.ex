@@ -8,12 +8,12 @@ defmodule Podium.API do
 
   use HTTPoison.Base
 
-  @spec process_url(String.t()) :: String.t()
+  @impl HTTPoison.Base
   def process_url(path) do
     base_url() <> path
   end
 
-  @spec process_request_headers(list()) :: list()
+  @impl HTTPoison.Base
   def process_request_headers(headers) do
     [
       {"Accept", "application/json"},
@@ -23,9 +23,14 @@ defmodule Podium.API do
     ] ++ headers
   end
 
-  @spec process_request_body(map()) :: String.t()
+  @impl HTTPoison.Base
   def process_request_body(body) do
     Jason.encode!(body)
+  end
+
+  @impl HTTPoison.Base
+  def process_request_options(opts) do
+    opts ++ [timeout: timeout(), recv_timeout: recv_timeout()]
   end
 
   @spec api_key() :: String.t()
@@ -33,6 +38,12 @@ defmodule Podium.API do
 
   @spec base_url() :: String.t()
   defp base_url, do: Application.get_env(:podium_ex, :base_url, @default_base_url)
+
+  @spec timeout :: integer()
+  defp timeout, do: Application.get_env(:podium_ex, :timeout, 15_000)
+
+  @spec recv_timeout :: integer()
+  defp recv_timeout, do: Application.get_env(:podium_ex, :recv_timeout, 15_000)
 
   @spec application_uid() :: String.t()
   defp application_uid, do: Application.get_env(:podium_ex, :application_uid, "")

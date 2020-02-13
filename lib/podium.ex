@@ -1,7 +1,13 @@
 defmodule Podium do
   @moduledoc """
-  Podium is a client for Podium's public API. It allows your to create new
+  Podium is a client for Podium's public API. It allows you to create new
   messages and send them, among other things.
+
+  All functions accept a keyword list of options as an optional second
+  argument. Those options will be passed through to `HTTPoison.Request`. Other
+  options include the following:
+
+  - `:headers` - allows you to add headers to the defaults sent by the library
   """
 
   alias Podium.{
@@ -19,8 +25,10 @@ defmodule Podium do
   @doc """
   Create a conversation item. Read about conversation items [here](https://hexdocs.pm/podium_ex/Podium.ConversationItem.html#content).
   """
-  @spec create_conversation_item(ConversationItem.t()) :: ConversationItem.t()
-  def create_conversation_item(%ConversationItem{} = item) do
+  @spec create_conversation_item(ConversationItem.t(), Keyword.t()) :: ConversationItem.t()
+  def create_conversation_item(%ConversationItem{} = item, opts \\ []) do
+    {headers, opts} = Keyword.pop(opts, :headers, [])
+
     conversation_item =
       item
       |> remove_nils()
@@ -28,93 +36,108 @@ defmodule Podium do
       |> inject_application_uid()
       |> inject_source_type()
 
-    conversation_item =
+    body =
       Caramelize.camelize(%{
         conversation_item: conversation_item
       })
 
-    API.post("/conversation_items", Caramelize.camelize(conversation_item))
+    API.post("/conversation_items", body, headers, opts)
   end
 
   @doc """
   Update a [conversation item](https://hexdocs.pm/podium_ex/Podium.ConversationItem.html#content).
   """
-  @spec update_conversation_item(ConversationItem.t()) :: ConversationItem.t()
-  def update_conversation_item(%ConversationItem{} = item) do
+  @spec update_conversation_item(ConversationItem.t(), Keyword.t()) :: ConversationItem.t()
+  def update_conversation_item(%ConversationItem{} = item, opts \\ []) do
+    {headers, opts} = Keyword.pop(opts, :headers, [])
+
     conversation_item =
       item
       |> remove_nils()
       |> inject_application_uid()
       |> inject_source_type()
 
-    conversation_item = %{
-      conversation_item: conversation_item
-    }
+    body =
+      Caramelize.camelize(%{
+        conversation_item: conversation_item
+      })
 
-    API.put("/conversation_items", Caramelize.camelize(conversation_item))
+    API.put("/conversation_items", body, headers, opts)
   end
 
   @doc """
   Delete a [conversation item](https://hexdocs.pm/podium_ex/Podium.ConversationItem.html#content).
   """
-  @spec delete_conversation_item(String.t(), String.t()) :: :ok
-  def delete_conversation_item(uid, organization_uid) do
+  @spec delete_conversation_item(String.t(), String.t(), Keyword.t()) :: :ok
+  def delete_conversation_item(uid, org_uid, opts \\ []) do
+    {headers, opts} = Keyword.pop(opts, :headers, [])
     application_uid = Application.get_env(:podium_ex, :application_uid)
 
-    API.delete("/applications/#{application_uid}/organizations/#{organization_uid}/conversation_items/#{uid}")
+    path = "/applications/#{application_uid}/organizations/#{org_uid}/conversation_items/#{uid}"
+
+    API.delete(path, headers, opts)
   end
 
   @doc """
   Create a message. Read about messages [here](https://hexdocs.pm/podium_ex/Podium.Message.html#content).
   """
-  @spec create_message(Message.t()) :: Message.t()
-  def create_message(%Message{} = msg) do
+  @spec create_message(Message.t(), Keyword.t()) :: Message.t()
+  def create_message(%Message{} = msg, opts \\ []) do
+    {headers, opts} = Keyword.pop(opts, :headers, [])
+
     message =
       msg
       |> remove_nils()
       |> inject_application_uid()
 
-    message = %{
-      conversation_item: message
-    }
+    body =
+      Caramelize.camelize(%{
+        conversation_item: message
+      })
 
-    API.post("/messages", Caramelize.camelize(message))
+    API.post("/messages", body, headers, opts)
   end
 
   @doc """
   Create an interaction. Read about interactions [here](https://hexdocs.pm/podium_ex/Podium.Interaction.html#content).
   """
-  @spec create_interaction(Interaction.t()) :: Interaction.t()
-  def create_interaction(%Interaction{} = interaction) do
+  @spec create_interaction(Interaction.t(), Keyword.t()) :: Interaction.t()
+  def create_interaction(%Interaction{} = interaction, opts \\ []) do
+    {headers, opts} = Keyword.pop(opts, :headers, [])
+
     interaction =
       interaction
       |> remove_nils()
       |> inject_application_uid()
       |> inject_source_type()
 
-    interaction = %{
-      interaction: interaction
-    }
+    body =
+      Caramelize.camelize(%{
+        interaction: interaction
+      })
 
-    API.post("/interactions", Caramelize.camelize(interaction))
+    API.post("/interactions", body, headers, opts)
   end
 
   @doc """
   Update an [interaction](https://hexdocs.pm/podium_ex/Podium.Interaction.html#content).
   """
-  @spec update_interaction(Interaction.t()) :: Interaction.t()
-  def update_interaction(%Interaction{uid: uid} = interaction) do
+  @spec update_interaction(Interaction.t(), Keyword.t()) :: Interaction.t()
+  def update_interaction(%Interaction{uid: uid} = interaction, opts \\ []) do
+    {headers, opts} = Keyword.pop(opts, :headers, [])
+
     interaction =
       interaction
       |> remove_nils()
       |> inject_application_uid()
       |> inject_source_type()
 
-    interaction = %{
-      interaction: interaction
-    }
+    body =
+      Caramelize.camelize(%{
+        interaction: interaction
+      })
 
-    API.put("/interactions/#{uid}", Caramelize.camelize(interaction))
+    API.put("/interactions/#{uid}", body, headers, opts)
   end
 
   @doc """
@@ -128,10 +151,12 @@ defmodule Podium do
       iex> get_organization("non-existent UID")
       nil
   """
-  @spec get_organization(String.t()) :: Organization.t() | nil
-  def get_organization(uid) do
+  @spec get_organization(String.t(), Keyword.t()) :: Organization.t() | nil
+  def get_organization(uid, opts \\ []) do
+    {headers, opts} = Keyword.pop(opts, :headers, [])
+
     with {:ok, %HTTPoison.Response{body: body, status_code: 200}} <-
-           API.get("/organizations/#{uid}"),
+           API.get("/organizations/#{uid}", headers, opts),
          {:ok, %{"data" => %{"organization" => org}}} <- Jason.decode(body),
          %{"uid" => uid, "locations" => locations, "businessName" => name} <- org do
       %Organization{
