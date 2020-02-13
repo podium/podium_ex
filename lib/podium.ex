@@ -20,7 +20,7 @@ defmodule Podium do
   Create a conversation item. Read about conversation items [here](https://hexdocs.pm/podium_ex/Podium.ConversationItem.html#content).
   """
   @spec create_conversation_item(ConversationItem.t()) :: ConversationItem.t()
-  def create_conversation_item(%ConversationItem{} = item, organization_uid \\ nil, location_uid \\ nil) do
+  def create_conversation_item(%ConversationItem{} = item) do
     conversation_item =
       item
       |> remove_nils()
@@ -29,9 +29,7 @@ defmodule Podium do
       |> inject_source_type()
 
     params = %{
-      conversation_item: conversation_item,
-      location_uid: location_uid,
-      organization_uid: organization_uid
+      conversation_item: conversation_item
     }
 
     API.post("/conversation_items", Caramelize.camelize(params))
@@ -41,7 +39,7 @@ defmodule Podium do
   Update a [conversation item](https://hexdocs.pm/podium_ex/Podium.ConversationItem.html#content).
   """
   @spec update_conversation_item(ConversationItem.t()) :: ConversationItem.t()
-  def update_conversation_item(%ConversationItem{} = item, organization_uid \\ nil, location_uid \\ nil) do
+  def update_conversation_item(%ConversationItem{} = item) do
     conversation_item =
       item
       |> remove_nils()
@@ -49,9 +47,7 @@ defmodule Podium do
       |> inject_source_type()
 
     params = %{
-      conversation_item: conversation_item,
-      location_uid: location_uid,
-      organization_uid: organization_uid
+      conversation_item: conversation_item
     }
 
     API.put("/conversation_items", Caramelize.camelize(params))
@@ -69,16 +65,14 @@ defmodule Podium do
   Create a message. Read about messages [here](https://hexdocs.pm/podium_ex/Podium.Message.html#content).
   """
   @spec create_message(Message.t()) :: Message.t()
-  def create_message(%Message{} = msg, organization_uid \\ nil, location_uid \\ nil) do
+  def create_message(%Message{} = msg) do
     message =
       msg
       |> remove_nils()
       |> inject_application_uid()
 
     params = %{
-      conversation_item: message,
-      location_uid: location_uid,
-      organization_uid: organization_uid
+      conversation_item: message
     }
 
     API.post("/messages", Caramelize.camelize(params))
@@ -88,7 +82,7 @@ defmodule Podium do
   Create an interaction. Read about interactions [here](https://hexdocs.pm/podium_ex/Podium.Interaction.html#content).
   """
   @spec create_interaction(Interaction.t()) :: Interaction.t()
-  def create_interaction(%Interaction{} = interaction, organization_uid \\ nil, location_uid \\ nil) do
+  def create_interaction(%Interaction{} = interaction) do
     interaction =
       interaction
       |> remove_nils()
@@ -96,9 +90,7 @@ defmodule Podium do
       |> inject_source_type()
 
     params = %{
-      interaction: interaction,
-      location_uid: location_uid,
-      organization_uid: organization_uid
+      interaction: interaction
     }
 
     API.post("/interactions", Caramelize.camelize(params))
@@ -108,7 +100,7 @@ defmodule Podium do
   Update an [interaction](https://hexdocs.pm/podium_ex/Podium.Interaction.html#content).
   """
   @spec update_interaction(Interaction.t()) :: Interaction.t()
-  def update_interaction(%Interaction{uid: uid} = interaction, organization_uid \\ nil, location_uid \\ nil) do
+  def update_interaction(%Interaction{uid: uid} = interaction) do
     interaction =
       interaction
       |> remove_nils()
@@ -116,9 +108,7 @@ defmodule Podium do
       |> inject_source_type()
 
     params = %{
-      interaction: interaction,
-      location_uid: location_uid,
-      organization_uid: organization_uid
+      interaction: interaction
     }
 
     API.put("/interactions/#{uid}", Caramelize.camelize(params))
