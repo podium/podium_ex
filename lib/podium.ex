@@ -61,7 +61,7 @@ defmodule Podium do
   def delete_conversation_item(uid, organization_uid) do
     application_uid = Application.get_env(:podium_ex, :application_uid)
 
-    API.delete("/applications/#{application_uid}organizations/#{organization_uid}/conversation_items/#{uid}")
+    API.delete("/applications/#{application_uid}/organizations/#{organization_uid}/conversation_items/#{uid}")
   end
 
   @doc """
