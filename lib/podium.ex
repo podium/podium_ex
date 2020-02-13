@@ -40,7 +40,7 @@ defmodule Podium do
   Update a [conversation item](https://hexdocs.pm/podium_ex/Podium.ConversationItem.html#content).
   """
   @spec update_conversation_item(ConversationItem.t()) :: ConversationItem.t()
-  def update_conversation_item(%ConversationItem{uid: uid} = item) do
+  def update_conversation_item(%ConversationItem{} = item) do
     conversation_item =
       item
       |> remove_nils()
@@ -51,15 +51,17 @@ defmodule Podium do
       conversation_item: conversation_item
     }
 
-    API.put("/conversation_items/#{uid}", Caramelize.camelize(conversation_item))
+    API.put("/conversation_items", Caramelize.camelize(conversation_item))
   end
 
   @doc """
   Delete a [conversation item](https://hexdocs.pm/podium_ex/Podium.ConversationItem.html#content).
   """
-  @spec delete_conversation_item(String.t()) :: :ok
-  def delete_conversation_item(uid) do
-    API.delete("/conversation_items/#{uid}")
+  @spec delete_conversation_item(String.t(), String.t()) :: :ok
+  def delete_conversation_item(uid, organization_uid) do
+    application_uid = Application.get_env(:podium_ex, :application_uid)
+
+    API.delete("/applications/#{application_uid}/organizations/#{organization_uid}/conversation_items/#{uid}")
   end
 
   @doc """
