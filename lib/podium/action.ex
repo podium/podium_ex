@@ -4,17 +4,15 @@ defmodule Podium.Action do
   """
 
   @type t :: %__MODULE__{
-    conversation_uid: String.t(),
-    interaction_uid: String.t(),
-    label: String.t(),
-    uri: String.t()
-  }
+          conversation_uid: String.t(),
+          interaction_uid: String.t(),
+          label: String.t(),
+          uri: String.t()
+        }
 
   @derive Jason.Encoder
-  defstruct [
-    conversation_uid: nil,
-    interaction_uid: nil,
-    label: nil,
-    uri: nil
-  ]
+  defstruct conversation_uid: nil,
+            interaction_uid: nil,
+            label: nil,
+            uri: nil
 end

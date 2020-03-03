@@ -131,11 +131,19 @@ defmodule Podium do
     with {:ok, %HTTPoison.Response{body: body, status_code: 200}} <-
            API.get("/organizations/#{uid}"),
          {:ok, %{"data" => %{"organization" => org}}} <- Jason.decode(body),
-         %{"uid" => uid, "locations" => locations, "businessName" => name} <- org do
+         %{
+           "uid" => uid,
+           "locations" => locations,
+           "businessName" => name,
+           "csmAdminName" => csm_admin_name,
+           "verticalDetails" => %{"verticalName" => vertical_name}
+         } <- org do
       %Organization{
         business_name: name,
+        csm_admin_name: csm_admin_name,
         locations: parse_locations(locations),
-        uid: uid
+        uid: uid,
+        vertical_name: vertical_name
       }
     else
       error ->

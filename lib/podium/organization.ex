@@ -7,12 +7,16 @@ defmodule Podium.Organization do
 
   @type t :: %__MODULE__{
           business_name: String.t(),
+          csm_admin_name: String.t(),
           uid: String.t(),
+          vertical_name: String.t(),
           locations: list(Location.t())
         }
 
   @derive Jason.Encoder
   defstruct business_name: nil,
+            csm_admin_name: nil,
             uid: nil,
+            vertical_name: nil,
             locations: nil
 end
