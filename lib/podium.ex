@@ -163,14 +163,17 @@ defmodule Podium do
            "locations" => locations,
            "businessName" => name,
            "csmAdminName" => csm_admin_name,
-           "verticalDetails" => %{"verticalName" => vertical_name}
+           "verticalDetails" => %{
+             "verticalName" => vertical_name,
+             "subVerticalName" => sub_vertical_name
+           }
          } <- org do
       %Organization{
         business_name: name,
         csm_admin_name: csm_admin_name,
         locations: parse_locations(locations),
         uid: uid,
-        vertical_name: vertical_name
+        vertical_details: %{vertical_name: vertical_name, sub_vertical_name: sub_vertical_name}
       }
     else
       error ->

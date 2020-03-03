@@ -9,7 +9,7 @@ defmodule Podium.Organization do
           business_name: String.t(),
           csm_admin_name: String.t(),
           uid: String.t(),
-          vertical_name: String.t(),
+          vertical_details: %{vertical_name: String.t(), sub_vertical_name: String.t()},
           locations: list(Location.t())
         }
 
@@ -17,6 +17,6 @@ defmodule Podium.Organization do
   defstruct business_name: nil,
             csm_admin_name: nil,
             uid: nil,
-            vertical_name: nil,
+            vertical_details: %{vertical_name: nil, sub_vertical_name: nil},
             locations: nil
 end
