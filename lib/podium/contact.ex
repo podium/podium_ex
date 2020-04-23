@@ -4,12 +4,14 @@ defmodule Podium.Contact do
   """
 
   @type t :: %__MODULE__{
+    email: String.t(),
     name: String.t(),
     phone_number: String.t()
   }
 
   @derive Jason.Encoder
   defstruct [
+    email: nil,
     name: nil,
     phone_number: nil
   ]
