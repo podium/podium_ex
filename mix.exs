@@ -5,7 +5,7 @@ defmodule PodiumEx.MixProject do
     [
       app: :podium_ex,
       description: "HTTP client for interfacing with the Podium API",
-      version: "0.7.0",
+      version: "0.9.0",
       elixir: "~> 1.7",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -29,7 +29,7 @@ defmodule PodiumEx.MixProject do
     [
       {:ex_doc, "~> 0.19", only: :dev, runtime: false},
       {:caramelize, "~> 0.2"},
-      {:httpoison, "~> 1.4"},
+      {:httpoison, "~> 1.7"},
       {:jason, "~> 1.1"}
     ]
   end
