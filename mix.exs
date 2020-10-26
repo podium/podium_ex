@@ -29,7 +29,7 @@ defmodule PodiumEx.MixProject do
     [
       {:ex_doc, "~> 0.19", only: :dev, runtime: false},
       {:caramelize, "~> 0.2"},
-      {:httpoison, "~> 1.4"},
+      {:httpoison, "~> 1.7"},
       {:jason, "~> 1.1"}
     ]
   end
