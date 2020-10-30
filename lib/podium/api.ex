@@ -30,7 +30,7 @@ defmodule Podium.API do
 
   @impl HTTPoison.Base
   def process_request_options(opts) do
-    opts ++ [timeout: timeout(), recv_timeout: recv_timeout()]
+    Keyword.merge([timeout: timeout(), recv_timeout: recv_timeout()], opts)
   end
 
   @spec api_key() :: String.t()
