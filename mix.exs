@@ -27,8 +27,9 @@ defmodule PodiumEx.MixProject do
 
   defp deps do
     [
-      {:ex_doc, "~> 0.19", only: :dev, runtime: false},
       {:caramelize, "~> 0.2"},
+      {:credo, "~> 1.7"},
+      {:ex_doc, "~> 0.19", only: :dev, runtime: false},
       {:httpoison, "~> 1.4"},
       {:jason, "~> 1.1"}
     ]

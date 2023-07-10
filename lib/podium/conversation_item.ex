@@ -10,31 +10,29 @@ defmodule Podium.ConversationItem do
   }
 
   @type t :: %__MODULE__{
-    contact: Contact.t(),
-    conversation_uid: String.t(),
-    header: String.t(),
-    subheader: String.t(),
-    body: String.t(),
-    location_uid: String.t(),
-    icon_url: String.t(),
-    actions: list(Action.t()),
-    source_type: Source.t(),
-    publish_date: DateTime.t(),
-    uid: String.t()
-  }
+          contact: Contact.t(),
+          conversation_uid: String.t(),
+          header: String.t(),
+          subheader: String.t(),
+          body: String.t(),
+          location_uid: String.t(),
+          icon_url: String.t(),
+          actions: list(Action.t()),
+          source_type: Source.t(),
+          publish_date: DateTime.t(),
+          uid: String.t()
+        }
 
   @derive Jason.Encoder
-  defstruct [
-    contact: nil,
-    conversation_uid: nil,
-    header: nil,
-    subheader: nil,
-    body: nil,
-    location_uid: nil,
-    icon_url: nil,
-    actions: nil,
-    source_type: nil,
-    publish_date: nil,
-    uid: nil
-  ]
+  defstruct contact: nil,
+            conversation_uid: nil,
+            header: nil,
+            subheader: nil,
+            body: nil,
+            location_uid: nil,
+            icon_url: nil,
+            actions: nil,
+            source_type: nil,
+            publish_date: nil,
+            uid: nil
 end
