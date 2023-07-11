@@ -142,14 +142,6 @@ defmodule Podium do
 
   @doc """
   Get an organization and its locations.
-
-  ## Examples
-
-      iex> get_organization("f4ac4bcb-e271-5a92-8e43-1d676a8821fa")
-      %Organization{locations: [%Location{}]}
-
-      iex> get_organization("non-existent UID")
-      nil
   """
   @spec get_organization(String.t(), Keyword.t()) :: Organization.t() | nil
   def get_organization(uid, opts \\ []) do
