@@ -6,11 +6,11 @@ defmodule Podium.Message do
   alias Podium.Contact
 
   @type t :: %__MODULE__{
-    body: String.t(),
-    contact: Contact.t(),
-    conversation_uid: String.t(),
-    location_uid: String.t()
-  }
+          body: String.t(),
+          contact: Contact.t(),
+          conversation_uid: String.t(),
+          location_uid: String.t()
+        }
 
   @derive Jason.Encoder
   defstruct body: nil,
